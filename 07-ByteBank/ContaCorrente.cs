@@ -1,16 +1,15 @@
 ﻿
-namespace _06_ByteBank
+namespace _07_ByteBank
 {
     public class ContaCorrente
     {
-        public Cliente Titular { get; set; }
-        public int Agencia { get; set; }
-        public int Numero { get; set; }
+        public Cliente titular;
+        public int agencia;
+        public int numero;
         private double _saldo = 100;
 
         public double Saldo
         {
-
             get
             {
                 return _saldo;
@@ -21,38 +20,44 @@ namespace _06_ByteBank
                 {
                     return;
                 }
-
                 _saldo = value;
             }
-
         }
+
+
+
+
+
+        
+
+
 
         public bool Sacar(double valor)
         {
-            if (_saldo < valor)
+            if (this.saldo < valor)
             {
                 return false;
             }
 
-            _saldo -= valor;
+            this.saldo -= valor;
             return true;
 
         }
 
         public void Depositar(double valor)
         {
-            _saldo += valor;
+            this.saldo += valor;
         }
 
         public bool Transferir(double valor, ContaCorrente contadestino)
         {
-            if (_saldo < valor)
+            if (this.saldo < valor)
             {
                 return false;
             }
 
 
-            _saldo -= valor;
+            this.saldo -= valor;
             contadestino.Depositar(valor);
             return true;
 
