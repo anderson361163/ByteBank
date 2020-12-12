@@ -1,11 +1,14 @@
 ﻿using System;
 
 
-namespace _07_ByteBank
+namespace _08_ByteBank
 {
     public class ContaCorrente
     {
         public Cliente Titular { get; set; }
+
+        //ISSO É 
+        public static int TotalContasCriadas { get; private set; }
         public int Numero { get; set; }
         private double _saldo = 100;
         private int _agencia;
@@ -29,6 +32,8 @@ namespace _07_ByteBank
         {
             Agencia = agencia;
             Numero = numero;
+            //A CADA NOVA INSTANCIA, SERÁ INCREMENTADO MAIS 1
+            ContaCorrente.TotalContasCriadas++;
         }
 
         ~ContaCorrente()
@@ -83,5 +88,6 @@ namespace _07_ByteBank
             return true;
 
         }
+    
     }
 }
