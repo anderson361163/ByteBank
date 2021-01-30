@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _08_ByteBank
+namespace _09_ByteBank
 {
     class Program
     {
@@ -16,33 +16,43 @@ namespace _08_ByteBank
 
                 conta1.Depositar(50);
                 Console.WriteLine(conta1.Saldo);
-                conta1.Sacar(50);
+                conta1.Sacar(500);
             }
             catch(ArgumentException ex)
             {
-
+                Console.WriteLine(ex.Message);
+            }
+            catch(SaldoInsuficienteException ex)
+            {
+                Console.WriteLine(ex.Message); //MESSAGE É UM MÉTODO PRIVADO
+                Console.WriteLine("Exceção do tipo SaldoInsuficienteException.");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
 
+            //Metodo();
+
+            /*
+              Console.WriteLine("Total de Contas criadas: " + ContaCorrente.TotalContasCriadas);
+
+              ContaCorrente conta = new ContaCorrente(867, 86712540);
 
 
 
-            Console.WriteLine("Total de Contas criadas: " + ContaCorrente.TotalContasCriadas);
 
-            ContaCorrente conta = new ContaCorrente(867, 86712540);
+              Console.WriteLine("Agência da conta: " + conta.Agencia);
+              Console.WriteLine("Número da conta: " + conta.Numero);
+              Console.WriteLine("Total de Contas criadas: " + ContaCorrente.TotalContasCriadas);
+
+              ContaCorrente contaDaGabriela = new ContaCorrente(867, 86745840);
+
+              Console.WriteLine("Total de Contas criadas: " + ContaCorrente.TotalContasCriadas);
 
 
-
-
-            Console.WriteLine("Agência da conta: " + conta.Agencia);
-            Console.WriteLine("Número da conta: " + conta.Numero);
-            Console.WriteLine("Total de Contas criadas: " + ContaCorrente.TotalContasCriadas);
-
-            ContaCorrente contaDaGabriela = new ContaCorrente(867, 86745840);
-
-            Console.WriteLine("Total de Contas criadas: " + ContaCorrente.TotalContasCriadas);
-
-            Console.ReadLine(  );
-
+            */
+            Console.ReadLine();
         }
     }
 }

@@ -2,7 +2,7 @@
 using System;
 
 
-namespace _08_ByteBank
+namespace _09_ByteBank
 {
     public class ContaCorrente
     {
@@ -63,18 +63,16 @@ namespace _08_ByteBank
             if (numero <= 0)
             {
                 //PRIMEIRO PARAMETRO É A MENSAGEM DO ERRO E O SEGUNDO É RAIZ DO PROBLEMA
-                throw new ArgumentException("O argumento numero deve ser maior que 0.", nameof(numeroConta));
+                throw new ArgumentException("O argumento numero deve ser maior que 0.", nameof(numero));
             }
 
 
             Agencia = agencia;
             Numero = numero;
 
-            TaxaOperacao = 30 / TotalContasCriadas;
-            
             //A CADA NOVA INSTANCIA, SERÁ INCREMENTADO MAIS 1
             ContaCorrente.TotalContasCriadas++;
-
+            TaxaOperacao = 30 / TotalContasCriadas;
 
         }
 
@@ -103,12 +101,12 @@ namespace _08_ByteBank
 
         public void Sacar(double valor)
         {
-            if (Saldo < valor)
+            if (_saldo < valor)
             {
-                throw new SaldoInsuficienteException();
+                throw new SaldoInsuficienteException("Saldo insuficiente para o saque no valor de " + valor);
             }
 
-            Saldo -= valor;
+            _saldo -= valor;
         }
 
         public void Depositar(double valor)
