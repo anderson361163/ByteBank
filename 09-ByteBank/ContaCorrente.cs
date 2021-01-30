@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _09_ByteBank;
+using System;
 
 
 namespace _08_ByteBank
@@ -13,7 +14,7 @@ namespace _08_ByteBank
 
         // -----------------------------------
 
-        public int Numero { get; set; }       
+        public int Numero { get; }       
         private int _agencia;
 
         private double _saldo = 100;
@@ -38,6 +39,34 @@ namespace _08_ByteBank
         //MÉTODO CONSTRUTOR
         public ContaCorrente(int agencia, int numero)
         {
+
+            /*
+             * Fortemente recomendado a 
+             */
+
+            /* Nameof é um operador do CSharp que
+             * converte conteudo de variaveis em string
+             * isso permite que as mensagens de erro 
+             * abaixo sigam a estrutura do código mesmo
+             * com mudanças
+             */
+            // nameof()
+
+
+            if (agencia <= 0)
+            {
+                //PRIMEIRO PARAMETRO É A MENSAGEM DO ERRO E O SEGUNDO É RAIZ DO PROBLEMA
+                throw new ArgumentException("O argumento agencia deve ser maior que 0.", nameof(agencia));
+            }
+
+
+            if (numero <= 0)
+            {
+                //PRIMEIRO PARAMETRO É A MENSAGEM DO ERRO E O SEGUNDO É RAIZ DO PROBLEMA
+                throw new ArgumentException("O argumento numero deve ser maior que 0.", nameof(numeroConta));
+            }
+
+
             Agencia = agencia;
             Numero = numero;
 
@@ -72,16 +101,14 @@ namespace _08_ByteBank
             }
         }
 
-        public bool Sacar(double valor)
+        public void Sacar(double valor)
         {
             if (Saldo < valor)
             {
-                return false;
+                throw new SaldoInsuficienteException();
             }
 
             Saldo -= valor;
-            return true;
-
         }
 
         public void Depositar(double valor)
@@ -89,17 +116,16 @@ namespace _08_ByteBank
             Saldo += valor;
         }
 
-        public bool Transferir(double valor, ContaCorrente contadestino)
+        public void Transferir(double valor, ContaCorrente contadestino)
         {
             if (Saldo < valor)
             {
-                return false;
+                //return false;
             }
 
 
             Saldo -= valor;
             contadestino.Depositar(valor);
-            return true;
 
         }
     
