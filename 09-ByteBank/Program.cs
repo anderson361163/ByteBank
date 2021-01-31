@@ -16,11 +16,21 @@ namespace _09_ByteBank
 
                 conta1.Depositar(50);
                 Console.WriteLine(conta1.Saldo);
-                conta1.Sacar(500);
+                //conta1.Sacar(500);
+                //caso a pessoa informe um valor negativo
+                conta1.Sacar(-500);
             }
             catch(ArgumentException ex)
             {
+                if(ex.ParamName == "numero")
+                {
+                  
+                }
+
+                Console.WriteLine("Argumento com problema: " + ex.ParamName);
+                Console.WriteLine("Ocorre uma exceção do tipo ArgumentException");
                 Console.WriteLine(ex.Message);
+
             }
             catch(SaldoInsuficienteException ex)
             {

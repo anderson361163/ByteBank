@@ -101,9 +101,17 @@ namespace _09_ByteBank
 
         public void Sacar(double valor)
         {
+            if(valor < 0)
+            {
+                //nameof converte o nome da variavel para string 
+                throw new ArgumentException("Valor inválido para o saque.",nameof(valor));
+            }
+
+
             if (_saldo < valor)
             {
-                throw new SaldoInsuficienteException("Saldo insuficiente para o saque no valor de " + valor);
+                // throw new SaldoInsuficienteException("Saldo insuficiente para o saque no valor de " + valor);
+                throw new SaldoInsuficienteException("" + valor);
             }
 
             _saldo -= valor;
