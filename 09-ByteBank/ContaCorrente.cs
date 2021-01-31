@@ -6,20 +6,42 @@ namespace _09_ByteBank
 {
     public class ContaCorrente
     {
-        public Cliente Titular { get; set; }
-
-        public static double TaxaOperacao { get; set; }
+        //campo readonly(acho)
+        public static int TaxaOperacao; //{ get; set; }
 
         public static int TotalContasCriadas { get; private set; }
 
+        public Cliente Titular { get; set; }
+
+        public int ContadorSaquesNaoPermetidos { get; private set; }
+        public int ContadorTransferenciasNaoPermetidos { get; private set; }
         // -----------------------------------
 
-        public int Numero { get; }       
-        private int _agencia;
+        public int Numero { get; }
+        public int Agencia { get; }
+
 
         private double _saldo = 100;
+        public double Saldo
+        {
+            get
+            {
+                return _saldo;
+            }
+            set
+            {
+                if (value < 0)
+                {
+                    return;
+                }
+                _saldo = value;
+            }
+        }
+
+
 
         // -----------------------------------
+        /*
         public int Agencia
         {
             get
@@ -35,6 +57,8 @@ namespace _09_ByteBank
                 _agencia = value;
             }
         }
+        */
+        // -----------------------------------
 
         //MÉTODO CONSTRUTOR
         public ContaCorrente(int agencia, int numero)
@@ -83,22 +107,6 @@ namespace _09_ByteBank
         }
 
 
-        public double Saldo
-        {
-            get
-            {
-                return _saldo;
-            }
-            set
-            {
-                if(value < 0)
-                {
-                    return;
-                }
-                _saldo = value;
-            }
-        }
-
         public void Sacar(double valor)
         {
             if(valor < 0)
@@ -110,6 +118,7 @@ namespace _09_ByteBank
 
             if (_saldo < valor)
             {
+                ContadorSaquesNaoPermetidos++;
                 // throw new SaldoInsuficienteException("Saldo insuficiente para o saque no valor de " + valor);
                 throw new SaldoInsuficienteException("" + valor);
             }
@@ -124,15 +133,48 @@ namespace _09_ByteBank
 
         public void Transferir(double valor, ContaCorrente contadestino)
         {
-            if (Saldo < valor)
+
+            if (valor < 0)
             {
-                //return false;
+                //nameof converte o nome da variavel para string 
+                throw new ArgumentException("Valor inválido para a transferência.", nameof(valor));
             }
 
+            /*
+            if (Saldo < valor)
+            {
 
-            Saldo -= valor;
+
+                //return false;
+            }
+            */
+
+            //comenta várias linhas simultaneamente
+            //ctrl+k+c
+
+            //throw sozinho precisa de parametro para lançar a excessão
+            //em um catch pode ser lançado a exceção 
+
+
+            try
+            {
+                Sacar(valor);
+            }
+            catch(SaldoInsuficienteException ex) 
+            {
+                ContadorTransferenciasNaoPermetidos++;
+
+                //CASO TIVESSE MANTIDO O THROW FAZENDO REFERENCIA AO OBJETO DO CATH
+                //SERIA PERDIDA A PILHA DO CATCH DO SACAR (A CLR IRIA SUBSTITUIR SEU VALOR)
+                //throw ex;
+
+                //MOSTRA TODA PILHA DE ERRO ATÉ AGORA
+                throw;
+            }
+
+            //Saldo -= valor;
             contadestino.Depositar(valor);
-
+            //return true;
         }
     
     }
