@@ -167,7 +167,7 @@ namespace _09_ByteBank
                 //CASO TIVESSE MANTIDO O THROW FAZENDO REFERENCIA AO OBJETO DO CATH
                 //SERIA PERDIDA A PILHA DO CATCH DO SACAR (A CLR IRIA SUBSTITUIR SEU VALOR)
                 throw ex;
-
+                //
                 //MOSTRA TODA PILHA DE ERRO ATÉ AGORA
                 //throw;
             }
